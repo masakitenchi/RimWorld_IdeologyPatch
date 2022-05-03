@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ModMetaData>
+	<name>IdeologyPatch</name>
+	<author>Neanderthal</author>
+	<packageId>reggex.IP</packageId>
+	<supportedVersions>
+		<li>1.3</li>
+	</supportedVersions>
+	<description>
+		Some changes to original memes.
+	</description>
+
+
+	<modDependencies>
+		<!-- Using hugslib as an example here. -->
+		<!--<li>
+			<packageId>ChJees.Androids</packageId>
+			<displayName>Androids</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=839005762</steamWorkshopUrl>
+		</li>-->
+	</modDependencies>
+	<!--<modDependenciesByVersion>
+	</modDependenciesByVersion>-->
+
+	<loadAfter>
+		<li>ChJees.Androids</li>
+	</loadAfter>
+</ModMetaData>
