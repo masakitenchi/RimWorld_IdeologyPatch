@@ -21,16 +21,16 @@ namespace AgeReversalAgeRebalanced
         }
         public static bool CanHaveThoughtPostfix(bool result, Pawn pawn)
         {
-            Log.Message("PostfixCalled");
-            Harmony.DEBUG = true;
-            Log.Message("prior to postfix:" + result);
-            Log.Message("CurrentAgeis:" + pawn.ageTracker.AgeBiologicalYears);
-            Log.Message("ExpectedLifeis:" + pawn.RaceProps.lifeExpectancy);
-            Log.Message("AgeReversalLifeStage=" + AgeReversalLifeStage);
-            Log.Message("(float) pawn.ageTracker.AgeBiologicalYears /(float)  pawn.RaceProps.lifeExpectancy=" + (float)pawn.ageTracker.AgeBiologicalYears / (float)pawn.RaceProps.lifeExpectancy);
+            //Log.Message("PostfixCalled");
+            //Harmony.DEBUG = true;
+            //Log.Message("prior to postfix:" + result);
+            // Log.Message("CurrentAgeis:" + pawn.ageTracker.AgeBiologicalYears);
+            //Log.Message("ExpectedLifeis:" + pawn.RaceProps.lifeExpectancy);
+            //Log.Message("AgeReversalLifeStage=" + AgeReversalLifeStage);
+            //Log.Message("(float) pawn.ageTracker.AgeBiologicalYears /(float)  pawn.RaceProps.lifeExpectancy=" + (float)pawn.ageTracker.AgeBiologicalYears / (float)pawn.RaceProps.lifeExpectancy);
             if ((float) pawn.ageTracker.AgeBiologicalYears /(float)  pawn.RaceProps.lifeExpectancy < AgeReversalLifeStage)
                 return false;
-            Log.Message("after postfix:" + result);
+            //Log.Message("after postfix:" + result);
             return result;
         }
     }
