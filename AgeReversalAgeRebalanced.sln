@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeologyPatch", "IdeologyPatch\IdeologyPatch.csproj", "{24409016-B909-4027-B4F1-3BD2F47F7FC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgeReversalAgeRebalanced", "AgeReversalAgeRebalanced\AgeReversalAgeRebalanced.csproj", "{24409016-B909-4027-B4F1-3BD2F47F7FC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
