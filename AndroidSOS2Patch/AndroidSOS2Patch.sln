@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidSOS2Patch", "AndroidSOS2Patch.csproj", "{D77EE992-E1E1-4039-A90B-1EF2662D96DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C15D2488-D478-40F7-BB8A-AF39055C2B56}
+	EndGlobalSection
+EndGlobal
