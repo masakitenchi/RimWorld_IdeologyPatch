@@ -16,17 +16,17 @@ namespace AndroidsIdeologyPatch
 		private static readonly Type patchType;
         public static bool IsDroid(this Pawn p)
         {
-            return p.def.defName == "ChjDroid" || p.def.defName == "ChjBattleDroid";
+#if DEBUG
+            Log.Message("Name:"+p.Name);
+            Log.Message("FleshType:"+p.RaceProps.FleshType.ToString());
+            Log.Message("IsDroid?:" +( p.RaceProps.FleshType.ToString() == "ChJDroid"));
+#endif
+            return p.RaceProps.FleshType.ToString() == "ChjDroid";
+            //return p.def.defName == "ChjDroid" || p.def.defName == "ChjBattleDroid";
         }
         public static bool IsSkynet(this Pawn p)
         {
-            
-            for(int i=0;i<p.health.hediffSet.hediffs.Count;i++)
-            {
-                if (p.health.hediffSet.hediffs[i].def.defName == "AndroidPassive")
-                    return true;
-            }
-            return false;
+            return p.health.hediffSet.hediffs.Exists(x => x.def.defName == "AndroidPassive");
         }
 		static HarmonyPatches()
         {
@@ -153,7 +153,7 @@ namespace AndroidsIdeologyPatch
             }
             if (!foundif || !foundnextloop)
             {
-                Log.Message("Error: No Such Code Found");
+                Log.Message("Error: Cannot patch IdeoUniformity method.");
                 return instructions;
             }
             List<CodeInstruction> newinstructions = new List<CodeInstruction>
