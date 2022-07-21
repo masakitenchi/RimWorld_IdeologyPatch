@@ -21,7 +21,7 @@ namespace AndroidsIdeologyPatch
             Log.Message("FleshType:"+p.RaceProps.FleshType.ToString());
             Log.Message("IsDroid?:" +( p.RaceProps.FleshType.ToString() == "ChJDroid"));
 #endif
-            return p.RaceProps.FleshType.ToString() == "ChjDroid";
+            return p.RaceProps.FleshType.ToString() == "ChJDroid";
             //return p.def.defName == "ChjDroid" || p.def.defName == "ChjBattleDroid";
         }
         public static bool IsSkynet(this Pawn p)
