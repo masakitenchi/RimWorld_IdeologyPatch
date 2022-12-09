@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32413.511
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core_SK_Patch", "Core_SK_Patch\Core_SK_Patch.csproj", "{B61E2EC5-DACF-487B-B528-87EF0532E8B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidSOS2Patch", "..\AndroidSOS2Patch\AndroidSOS2Patch.csproj", "{D77EE992-E1E1-4039-A90B-1EF2662D96DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidsIdeologyPatch", "..\AndroidsIdeologyPatch\AndroidsIdeologyPatch.csproj", "{49E15434-E053-4968-9F24-B555422F7120}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgeReversalAgeRebalanced", "..\AgeReversalAgeRebalanced\AgeReversalAgeRebalanced.csproj", "{24409016-B909-4027-B4F1-3BD2F47F7FC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColonistGroupFix", "ColonistGroupFix\ColonistGroupFix.csproj", "{54C8B978-E698-4677-82AD-5A0ECAE2C13E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedUtility", "..\BedUtility\BedUtility\BedUtility.csproj", "{B0765F79-B41C-4591-B460-F41EA05B3722}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B61E2EC5-DACF-487B-B528-87EF0532E8B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61E2EC5-DACF-487B-B528-87EF0532E8B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61E2EC5-DACF-487B-B528-87EF0532E8B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61E2EC5-DACF-487B-B528-87EF0532E8B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77EE992-E1E1-4039-A90B-1EF2662D96DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E15434-E053-4968-9F24-B555422F7120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49E15434-E053-4968-9F24-B555422F7120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49E15434-E053-4968-9F24-B555422F7120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49E15434-E053-4968-9F24-B555422F7120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24409016-B909-4027-B4F1-3BD2F47F7FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24409016-B909-4027-B4F1-3BD2F47F7FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24409016-B909-4027-B4F1-3BD2F47F7FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24409016-B909-4027-B4F1-3BD2F47F7FC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C8B978-E698-4677-82AD-5A0ECAE2C13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C8B978-E698-4677-82AD-5A0ECAE2C13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C8B978-E698-4677-82AD-5A0ECAE2C13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C8B978-E698-4677-82AD-5A0ECAE2C13E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0765F79-B41C-4591-B460-F41EA05B3722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0765F79-B41C-4591-B460-F41EA05B3722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0765F79-B41C-4591-B460-F41EA05B3722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0765F79-B41C-4591-B460-F41EA05B3722}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E17C81D8-7B11-4761-83EF-25934CDA6E3C}
+	EndGlobalSection
+EndGlobal

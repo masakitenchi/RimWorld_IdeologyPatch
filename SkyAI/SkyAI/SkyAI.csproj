@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{41BDF57E-DE3D-43C5-BE9D-D35FB5F51FC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SkyAI</RootNamespace>
+    <AssemblyName>SkyAI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\Mods\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CombatExtended">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\Mods\CombatExtended\Assemblies\CombatExtended.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Core_SK">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\Mods\Core_SK\Assemblies\Core_SK.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\System.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>D:\SteamLibrary\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="SkyMind\AdvancedAI.cs" />
+    <Compile Include="SkyMind\AdvancedAI_Aura.cs" />
+    <Compile Include="SkyMind\AdvancedAI_BreachingUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_CaravanUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_Classes.cs" />
+    <Compile Include="SkyMind\AdvancedAI_CoverUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_ExitSpotUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_Extensions.cs" />
+    <Compile Include="SkyMind\AdvancedAI_FollowUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_GenerateUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_Jobs.cs" />
+    <Compile Include="SkyMind\AdvancedAI_LordUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_MoveItemUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_Roles.cs" />
+    <Compile Include="SkyMind\AdvancedAI_SiegeUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_SquadUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_TakeAndEquipUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_TendUtility.cs" />
+    <Compile Include="SkyMind\AdvancedAI_TraitUtility.cs" />
+    <Compile Include="SkyMind\CompDoctorRole.cs" />
+    <Compile Include="SkyMind\CompGuardRole.cs" />
+    <Compile Include="SkyMind\CompLeaderRole.cs" />
+    <Compile Include="SkyMind\CompProperties_BodyGuardRole.cs" />
+    <Compile Include="SkyMind\CompProperties_DoctorRole.cs" />
+    <Compile Include="SkyMind\CompProperties_LeaderRole.cs" />
+    <Compile Include="SkyMind\CompProperties_SquadCommanderRole.cs" />
+    <Compile Include="SkyMind\CompSquadCommanderRole.cs" />
+    <Compile Include="SkyMind\ExitData.cs" />
+    <Compile Include="SkyMind\FactionDefOfAI.cs" />
+    <Compile Include="SkyMind\HarmonyBase.cs" />
+    <Compile Include="SkyMind\HediffDefOfAI.cs" />
+    <Compile Include="SkyMind\HediffLeader.cs" />
+    <Compile Include="SkyMind\HediffLeaderAura.cs" />
+    <Compile Include="SkyMind\JobDefOfAI.cs" />
+    <Compile Include="SkyMind\JobDriver_AddConsciousnessBuff.cs" />
+    <Compile Include="SkyMind\JobDriver_AITend.cs" />
+    <Compile Include="SkyMind\JobDriver_LootItem.cs" />
+    <Compile Include="SkyMind\JobGiver_SiegeAI.cs" />
+    <Compile Include="SkyMind\JobGiver_TakeAndEquip.cs" />
+    <Compile Include="SkyMind\LordJob_Bodyguard.cs" />
+    <Compile Include="SkyMind\LordJob_ExitMapPanicFlee.cs" />
+    <Compile Include="SkyMind\LordJob_StageAttack.cs" />
+    <Compile Include="SkyMind\MapComponent_SkyAI.cs" />
+    <Compile Include="SkyMind\Materials.cs" />
+    <Compile Include="SkyMind\Patch_AttackTargetFinder_BestShootTargetFromCurrentPosition.cs" />
+    <Compile Include="SkyMind\Patch_CastPositionFinder_CastPositionPreference.cs" />
+    <Compile Include="SkyMind\Patch_HealthTracker_MakeDowned.cs" />
+    <Compile Include="SkyMind\Patch_HealthTracker_MakeUndowned.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_AIBreaching_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_AIFightEnemy_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_AIGotoNearestHostile_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_AITrashColonyClose_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_ExitMapBest_TryFindGoodExitDest.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_ExitMapRandom_TryFindGoodExitDest.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_ExitMap_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_Kidnap_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_SelfTend_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_Steal_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_TakeCombatEnhancingDrug_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_JobGiver_WanderNearDutyLocation_TryGiveJob.cs" />
+    <Compile Include="SkyMind\Patch_LordManager_LordManagerTick.cs" />
+    <Compile Include="SkyMind\Patch_LordToil_Siege_LordToilTick.cs" />
+    <Compile Include="SkyMind\Patch_LordToil_Siege_UpdateAllDuties_PostFix.cs" />
+    <Compile Include="SkyMind\Patch_LordToil_Siege_UpdateAllDuties_Prefix.cs" />
+    <Compile Include="SkyMind\Patch_Map_MapUpdate.cs" />
+    <Compile Include="SkyMind\Patch_MassUtility_Capacity.cs" />
+    <Compile Include="SkyMind\Patch_MindState_AnyCloseHostilesChecker.cs" />
+    <Compile Include="SkyMind\Patch_Pawn_JobTracker_TryFindAndStartJob.cs" />
+    <Compile Include="SkyMind\Patch_Pawn_Tick.cs" />
+    <Compile Include="SkyMind\Patch_SiegeBlueprintPlacer_PlaceArtilleryBlueprints.cs" />
+    <Compile Include="SkyMind\Patch_Stance_Warmup_StanceTick.cs" />
+    <Compile Include="SkyMind\Patch_StealAIUtility_TotalMarketValueAround.cs" />
+    <Compile Include="SkyMind\Patch_ThingWithComps_InitializeComps.cs" />
+    <Compile Include="SkyMind\Patch_Thing_Draw.cs" />
+    <Compile Include="SkyMind\Patch_Thing_SpawnSetup.cs" />
+    <Compile Include="SkyMind\Patch_Tradeable_ResolveTrade.cs" />
+    <Compile Include="SkyMind\Patch_VisitorGiftForPlayerUtility_GiveGift.cs" />
+    <Compile Include="SkyMind\PawnThingsOwner.cs" />
+    <Compile Include="SkyMind\RaidData.cs" />
+    <Compile Include="SkyMind\RaidLeaderAuraExtension.cs" />
+    <Compile Include="SkyMind\RaidLeaderExtension.cs" />
+    <Compile Include="SkyMind\Settings.cs" />
+    <Compile Include="SkyMind\SkyAiCore.cs" />
+    <Compile Include="SkyMind\SpecialStatic.cs" />
+    <Compile Include="SkyMind\SquadAttackComponent.cs" />
+    <Compile Include="SkyMind\SquadAttackData.cs" />
+    <Compile Include="SkyMind\SquadAttackGrid.cs" />
+    <Compile Include="SkyMind\SquadAttackGridDebug.cs" />
+    <Compile Include="SkyMind\SquadAttackGrigNoiseDebugDrawer.cs" />
+    <Compile Include="SkyMind\SquadAttackUtility.cs" />
+    <Compile Include="SkyMind\SquadData.cs" />
+    <Compile Include="SkyMind\TerrainDefOfAI.cs" />
+    <Compile Include="SkyMind\TexturesLoader.cs" />
+    <Compile Include="SkyMind\ThingCategoryDefOfAI.cs" />
+    <Compile Include="SkyMind\ThingDefOfAI.cs" />
+    <Compile Include="SkyMind\TraitDefOfAI.cs" />
+    <Compile Include="SkyMind\Trigger_RaidPawnsLost.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resources" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -3,7 +3,6 @@ using Verse;
 using Androids;
 using HarmonyLib;
 using System;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Linq;
@@ -32,7 +31,7 @@ namespace AndroidsIdeologyPatch
         {
             Log.Message("AndroidsIdeologyPatch Loaded");
 			patchType = typeof(HarmonyPatches);
-			Harmony harmony = new Harmony("com.reggex.AndroidIedologyPatch");
+			Harmony harmony = new Harmony("com.reggex.AndroidIdeologyPatch");
 			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic), "ShouldHaveThought"),null, new HarmonyMethod(patchType,"ProstheticShouldHaveThoughtPostfix"));
 			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "ProstheticShouldHaveThoughtSocialPostfix"));
 			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity), "ShouldHaveThought"), null,null,new HarmonyMethod(patchType, "DiversityTranspiler"));
@@ -128,9 +127,6 @@ namespace AndroidsIdeologyPatch
         {
             __result = otherPawn.IsDroid() || otherPawn.IsSkynet() ? false : __result;
         }
-#if DEBUG
-        [HarmonyDebug]
-#endif
         public static IEnumerable<CodeInstruction> UniformTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             int index=0;

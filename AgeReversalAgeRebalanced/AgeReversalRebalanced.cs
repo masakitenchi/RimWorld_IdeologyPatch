@@ -14,24 +14,17 @@ namespace AgeReversalAgeRebalanced
         private static readonly Type patchType;
         static HarmonyPatches()
         {
-            Log.Message("IdeologyPatch Loaded");
+            Log.Message("AgeReversalRebanlanced Loaded");
             patchType = typeof(HarmonyPatches);
             Harmony harmony= new Harmony("regex.ARAR");
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_AgeReversalDemanded), "CanHaveThoughtImpl"), null, new HarmonyMethod(patchType, "CanHaveThoughtPostfix"));
         }
-        public static bool CanHaveThoughtPostfix(bool result, Pawn pawn)
+        #if DEBUG
+        [HarmonyDebug]
+        #endif
+        public static void CanHaveThoughtPostfix(ref bool __result, Pawn pawn)
         {
-            //Log.Message("PostfixCalled");
-            //Harmony.DEBUG = true;
-            //Log.Message("prior to postfix:" + result);
-            // Log.Message("CurrentAgeis:" + pawn.ageTracker.AgeBiologicalYears);
-            //Log.Message("ExpectedLifeis:" + pawn.RaceProps.lifeExpectancy);
-            //Log.Message("AgeReversalLifeStage=" + AgeReversalLifeStage);
-            //Log.Message("(float) pawn.ageTracker.AgeBiologicalYears /(float)  pawn.RaceProps.lifeExpectancy=" + (float)pawn.ageTracker.AgeBiologicalYears / (float)pawn.RaceProps.lifeExpectancy);
-            if ((float) pawn.ageTracker.AgeBiologicalYears /(float)  pawn.RaceProps.lifeExpectancy < AgeReversalLifeStage)
-                return false;
-            //Log.Message("after postfix:" + result);
-            return result;
+            __result = (float)pawn.ageTracker.AgeBiologicalYears / (float)pawn.RaceProps.lifeExpectancy < AgeReversalLifeStage ? false : __result;
         }
     }
 }

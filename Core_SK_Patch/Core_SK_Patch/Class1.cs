@@ -4,6 +4,8 @@ using Verse;
 using HarmonyLib;
 using SK.Events;
 using RimworldMod;
+using SurvivalToolsLite;
+using Androids;
 namespace Core_SK_Patch
 {
 	[DefOf]
@@ -21,14 +23,31 @@ namespace Core_SK_Patch
 		private static readonly Type patchType;
 		static Core_SK_Patch()
         {
+#if DEBUG
+			Harmony.DEBUG = true;
+#endif
 			Log.Message("CoreSKPatch Enabled");
 			patchType = typeof(Core_SK_Patch);
 			Harmony harmony = new Harmony("com.reggex.HSKPatch");
-			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Hediff), "CurrentStateInternal"), null, new HarmonyMethod(patchType, "MethadoneHigh"));
+			//SOS2 Compatibility Patch
+			if(ModsConfig.IsActive("kentington.saveourship2"))
+            {
+				Log.Message("CoreSK_SOS2Patch Enabled");
+				harmony.Patch(AccessTools.Method(typeof(IncidentWorker_SeismicActivity), "CanFireNowSub"), null, new HarmonyMethod(patchType, "CanFireNowSubPostfix"));
+            }
+			//Methadone Fix
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Hediff), "CurrentStateInternal"), null, new HarmonyMethod(patchType, "MethadoneHigh"));
 			harmony.Patch(AccessTools.Method(typeof(AddictionUtility), "CanBingeOnNow"), null, new HarmonyMethod(patchType, "CanBingeOnNowPostfix"));
-			harmony.Patch(AccessTools.Method(typeof(IncidentWorker_SeismicActivity), "CanFireNowSub"), null, new HarmonyMethod(patchType, "CanFireNowSubPostfix"));
+			Log.Message("MethadoneFix Enabled");
+			//harmony.Patch(AccessTools.Method(typeof(SurvivalToolUtility), "CanUseSurvivalTools"), null, new HarmonyMethod(patchType, "CanUseToolsPostfix"));
 			
         }
+		/* Currently need some new conditions since Friendly Mechanoid's been added since Biotech
+		public static void CanUseToolsPostfix(ref bool __result, Pawn pawn)
+        {
+			__result=pawn.def.HasModExtension<MechanicalPawnProperties>() ? false : __result;
+			return ;
+        }*/
 		public static void MethadoneHigh(ThoughtWorker_Hediff __instance, ref ThoughtState __result, Pawn p)
 		{
 			if (__result.StageIndex != ThoughtState.Inactive.StageIndex)
