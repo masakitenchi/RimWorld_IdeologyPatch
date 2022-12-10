@@ -13,24 +13,22 @@ namespace AndroidSOS2Patch
     {
         private static bool IsDroid(this Pawn p)
         {
-            if (!(p.def.defName == "ChjDroid"))
-            {
-                return p.def.defName == "ChjBattleDroid";
-            }
-            return true;
+            return p.def.defName == "ChjDroid" || p.def.defName == "ChjBattleDroid";
         }
         private static readonly Type patchType;
         static AndroidSOS2Patch()
         {
+            if (!ModsConfig.IsActive("kentington.saveourship2"))
+            {
+                Log.Error("SOS2 not detected. Aborting Patching");
+                return;
+            }
             Log.Message("AndroidSOS2Patch Enabled");
             patchType = typeof(AndroidSOS2Patch);
             Harmony harmony = new Harmony("com.reggex.AndroidsSOS2Patch");
-            if(ModLister.HasActiveModWithName("Save Our Ship 2"))
-            {
-                harmony.Patch(AccessTools.Method(typeof(RimworldMod.VacuumIsNotFun.VacuumExtensions), "ExtraDangerFor"), null, null, new HarmonyMethod(patchType, "DroidsDontFearVaccum"));
-                harmony.Patch(AccessTools.Method(typeof(WeatherEvent_VacuumDamage), "FireEvent"), null, null, new HarmonyMethod(patchType, "DroidsAreImmuneToVaccum"));
-                harmony.Patch(AccessTools.Method(typeof(RimworldMod.VacuumIsNotFun.H_Vacuum_PathFinder), "AdditionalPathCost"), null, new HarmonyMethod(patchType, "AdditionalPathCostPostfix"));
-            }
+            harmony.Patch(AccessTools.Method(typeof(RimworldMod.VacuumIsNotFun.VacuumExtensions), "ExtraDangerFor"), null, null, new HarmonyMethod(patchType, "DroidsDontFearVaccum"));
+            harmony.Patch(AccessTools.Method(typeof(WeatherEvent_VacuumDamage), "FireEvent"), null, null, new HarmonyMethod(patchType, "DroidsAreImmuneToVaccum"));
+            harmony.Patch(AccessTools.Method(typeof(RimworldMod.VacuumIsNotFun.H_Vacuum_PathFinder), "AdditionalPathCost"), null, new HarmonyMethod(patchType, "AdditionalPathCostPostfix"));
         }
         public static IEnumerable<CodeInstruction> DroidsAreImmuneToVaccum(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {

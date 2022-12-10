@@ -27,7 +27,7 @@ namespace BedUtility
 
         public static void HasPersonalBedroomPostfix(ref bool __result, Pawn p)
         {
-
+            List<Building_Bed> beds= 
         }
     }
 }

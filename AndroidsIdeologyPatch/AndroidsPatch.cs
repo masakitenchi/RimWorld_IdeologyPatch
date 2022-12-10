@@ -5,21 +5,20 @@ using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using System.Reflection;
 using System.Linq;
 
 namespace AndroidsIdeologyPatch
 {
-	[StaticConstructorOnStartup]
+#if DEBUG
+    [HarmonyDebug]
+#endif
+    [StaticConstructorOnStartup]
 	public static class HarmonyPatches
     {
 		private static readonly Type patchType;
         public static bool IsDroid(this Pawn p)
         {
-#if DEBUG
-            Log.Message("Name:"+p.Name);
-            Log.Message("FleshType:"+p.RaceProps.FleshType.ToString());
-            Log.Message("IsDroid?:" +( p.RaceProps.FleshType.ToString() == "ChJDroid"));
-#endif
             return p.RaceProps.FleshType.ToString() == "ChJDroid";
             //return p.def.defName == "ChjDroid" || p.def.defName == "ChjBattleDroid";
         }
@@ -29,13 +28,28 @@ namespace AndroidsIdeologyPatch
         }
 		static HarmonyPatches()
         {
-            Log.Message("AndroidsIdeologyPatch Loaded");
+            Log.Warning("AndroidsIdeologyPatch Loaded");
 			patchType = typeof(HarmonyPatches);
 			Harmony harmony = new Harmony("com.reggex.AndroidIdeologyPatch");
-			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic), "ShouldHaveThought"),null, new HarmonyMethod(patchType,"ProstheticShouldHaveThoughtPostfix"));
-			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "ProstheticShouldHaveThoughtSocialPostfix"));
-			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity), "ShouldHaveThought"), null,null,new HarmonyMethod(patchType, "DiversityTranspiler"));
-            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Social),"ShouldHaveThought"),null,new HarmonyMethod(patchType,"SocialPostfix"));
+            //Patch all "ShouldHaveThought" method in ThoughtWorker_Precept_*_Social
+            Type targettype = typeof(ThoughtWorker_Precept_Social);
+            MethodInfo targetmethod = targettype.GetMethod("ShouldHaveThought");
+            Assembly assembly_csharp = Assembly.GetAssembly(targettype);
+            Type[] derivedtypes = AccessTools.GetTypesFromAssembly(assembly_csharp).Where(t => t.IsSubclassOf(targettype)).ToArray();
+            Log.Warning(String.Format("Found {0} SubClass of {1}. Patching ShouldHaveThought.", derivedtypes.Length, targettype.ToString()));
+            foreach (Type derivedtype in derivedtypes)
+            {
+                MethodInfo[] overridingMethods = derivedtype.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).Where(m => m.IsAbstract && m.GetBaseDefinition() == targetmethod).ToArray();
+                foreach (MethodInfo method in overridingMethods)
+                {
+                    harmony.Patch(method, postfix: new HarmonyMethod(patchType, "SocialPostfix"));
+                }
+            }
+			//harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic), "ShouldHaveThought"),null, new HarmonyMethod(patchType,"ProstheticShouldHaveThoughtPostfix"));
+			//harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "ProstheticShouldHaveThoughtSocialPostfix"));
+            //harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "SocialPostfix"));
+            //Transpilers that add new conditions
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity), "ShouldHaveThought"), null,null,new HarmonyMethod(patchType, "DiversityTranspiler"));
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Uniform), "ShouldHaveThought"), null,null, new HarmonyMethod(patchType, "UniformTranspiler"));
 		}
 		public static void ProstheticShouldHaveThoughtPostfix(ref ThoughtState __result, Pawn p)
@@ -47,6 +61,11 @@ namespace AndroidsIdeologyPatch
         {
             __result = otherPawn.IsAndroid() || otherPawn.IsSkynet() ? false : __result;
 			return;
+        }
+
+        public static void SocialThoughtWorkerPatchForDroids(MethodBase __originalMethod, Pawn p, Pawn otherPawn, ref ThoughtState __result)
+        {
+            __result = otherPawn.IsDroid() ? false : __result;
         }
         /*public static bool IdeoShouldHaveThoughtPrefix(ref ThoughtState __result, Pawn p, ThoughtDef ___def)
         {
@@ -80,9 +99,6 @@ namespace AndroidsIdeologyPatch
             __result = ThoughtState.ActiveAtStage(Mathf.RoundToInt((float)num / (float)(num2 - 1) * (float)(___def.stages.Count - 1)));
             return false;
         }*/
-#if DEBUG
-        [HarmonyDebug]
-#endif
         public static IEnumerable<CodeInstruction> DiversityTranspiler(IEnumerable<CodeInstruction> instructions,ILGenerator generator)
         {
             int index=0;
