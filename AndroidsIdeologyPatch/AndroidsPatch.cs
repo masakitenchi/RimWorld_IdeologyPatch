@@ -39,7 +39,7 @@ namespace AndroidsIdeologyPatch
             Log.Warning(String.Format("Found {0} SubClass of {1}. Patching ShouldHaveThought.", derivedtypes.Length, targettype.ToString()));
             foreach (Type derivedtype in derivedtypes)
             {
-                MethodInfo[] overridingMethods = derivedtype.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).Where(m => m.IsAbstract && m.GetBaseDefinition() == targetmethod).ToArray();
+                MethodInfo[] overridingMethods = derivedtype.GetMethods(BindingFlags.DeclaredOnly|BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).Where(m =>m.GetBaseDefinition() == targetmethod).ToArray();
                 foreach (MethodInfo method in overridingMethods)
                 {
                     harmony.Patch(method, postfix: new HarmonyMethod(patchType, "SocialPostfix"));
@@ -67,38 +67,6 @@ namespace AndroidsIdeologyPatch
         {
             __result = otherPawn.IsDroid() ? false : __result;
         }
-        /*public static bool IdeoShouldHaveThoughtPrefix(ref ThoughtState __result, Pawn p, ThoughtDef ___def)
-        {
-            if (p.Faction == null || !p.IsColonist)
-            {
-                __result = false;
-                return false;
-            }
-            int num = 0;
-            int num2 = 0;
-            List<Pawn> list = p.Map.mapPawns.SpawnedPawnsInFaction(p.Faction);
-            for (int i = 0; i < list.Count; i++)
-            {
-                //Log.Message("List[" + i + "] is :" + list[i].Name);
-                //Log.Message("IsQuestLodger?:" + list[i].IsQuestLodger() + "\n Is Humanlike?:" + list[i].RaceProps.Humanlike + "\n Is Slave? :" + list[i].IsSlave + "\n Is Prisoner? :" + list[i].IsPrisoner);
-                //Log.Message("defname:" + list[i].def.defName);
-                if (!list[i].IsQuestLodger() && list[i].RaceProps.Humanlike && !list[i].IsSlave && !list[i].IsPrisoner && !list[i].IsDroid())
-                {
-                    num2++;
-                    if (list[i] != p && list[i].Ideo != p.Ideo)
-                    {
-                        num++;
-                    }
-                }
-            }
-            if (num == 0)
-            {
-                __result = ThoughtState.Inactive;
-                return false;
-            }
-            __result = ThoughtState.ActiveAtStage(Mathf.RoundToInt((float)num / (float)(num2 - 1) * (float)(___def.stages.Count - 1)));
-            return false;
-        }*/
         public static IEnumerable<CodeInstruction> DiversityTranspiler(IEnumerable<CodeInstruction> instructions,ILGenerator generator)
         {
             int index=0;
@@ -185,29 +153,5 @@ namespace AndroidsIdeologyPatch
             codes.InsertRange(index, newinstructions);
             return codes;
         }
-        /*public static bool IdeoShouldHaveThoughtUniformPrefix(ref ThoughtState __result,Pawn p)
-        {
-            if (p.Faction == null || !p.IsColonist)
-            {
-                __result = false;
-                return false;
-            }
-            List<Pawn> list = p.Map.mapPawns.SpawnedPawnsInFaction(p.Faction);
-            int num = 0;
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] != p && list[i].RaceProps.Humanlike && !list[i].IsSlave && !list[i].IsQuestLodger() && !list[i].IsDroid())
-                {
-                    if (list[i].Ideo != p.Ideo)
-                    {
-                        __result = false;
-                        return false;
-                    }
-                    num++;
-                }
-            }
-            __result=num > 0;
-            return false;
-        }*/
     }
 }
