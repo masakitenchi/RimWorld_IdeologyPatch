@@ -28,15 +28,15 @@ namespace AndroidsIdeologyPatch
         }
 		static HarmonyPatches()
         {
-            Log.Warning("AndroidsIdeologyPatch Loaded");
+            Log.Message("AndroidsIdeologyPatch Loaded");
 			patchType = typeof(HarmonyPatches);
 			Harmony harmony = new Harmony("com.reggex.AndroidIdeologyPatch");
             //Patch all "ShouldHaveThought" method in ThoughtWorker_Precept_*_Social
-            Type targettype = typeof(ThoughtWorker_Precept_Social);
+            /*Type targettype = typeof(ThoughtWorker_Precept_Social);
             MethodInfo targetmethod = targettype.GetMethod("ShouldHaveThought");
             Assembly assembly_csharp = Assembly.GetAssembly(targettype);
             Type[] derivedtypes = AccessTools.GetTypesFromAssembly(assembly_csharp).Where(t => t.IsSubclassOf(targettype)).ToArray();
-            Log.Warning(String.Format("Found {0} SubClass of {1}. Patching ShouldHaveThought.", derivedtypes.Length, targettype.ToString()));
+            Log.Message(String.Format("Found {0} SubClass of {1}. Patching ShouldHaveThought_Social.", derivedtypes.Length, targettype.ToString()));
             foreach (Type derivedtype in derivedtypes)
             {
                 MethodInfo[] overridingMethods = derivedtype.GetMethods(BindingFlags.DeclaredOnly|BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).Where(m =>m.GetBaseDefinition() == targetmethod).ToArray();
@@ -44,10 +44,10 @@ namespace AndroidsIdeologyPatch
                 {
                     harmony.Patch(method, postfix: new HarmonyMethod(patchType, "SocialPostfix"));
                 }
-            }
-			//harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic), "ShouldHaveThought"),null, new HarmonyMethod(patchType,"ProstheticShouldHaveThoughtPostfix"));
-			//harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "ProstheticShouldHaveThoughtSocialPostfix"));
-            //harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "SocialPostfix"));
+            }*/
+			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic), "ShouldHaveThought"),null, new HarmonyMethod(patchType,"ProstheticShouldHaveThoughtPostfix"));
+			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "ProstheticShouldHaveThoughtSocialPostfix"));
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "SocialPostfix"));
             //Transpilers that add new conditions
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity), "ShouldHaveThought"), null,null,new HarmonyMethod(patchType, "DiversityTranspiler"));
             harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Uniform), "ShouldHaveThought"), null,null, new HarmonyMethod(patchType, "UniformTranspiler"));
@@ -88,7 +88,7 @@ namespace AndroidsIdeologyPatch
             }
             if(!foundif || !foundnextloop)
             {
-                Log.Message("Error: No Such Code Found");
+                Log.Error("Error: No Such Code Found. Old transpiler?");
                 return instructions;
             }
             List<CodeInstruction> newinstructions = new List<CodeInstruction>
@@ -133,7 +133,7 @@ namespace AndroidsIdeologyPatch
             }
             if (!foundif || !foundnextloop)
             {
-                Log.Message("Error: Cannot patch IdeoUniformity method.");
+                Log.Error("Error: Cannot patch IdeoUniformity method. Old transpiler?");
                 return instructions;
             }
             List<CodeInstruction> newinstructions = new List<CodeInstruction>
