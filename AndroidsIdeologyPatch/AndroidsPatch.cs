@@ -17,6 +17,8 @@ namespace AndroidsIdeologyPatch
 	public static class HarmonyPatches
     {
 		private static readonly Type patchType;
+
+        private static readonly MethodInfo list_get_Item = AccessTools.Method(typeof(List<Pawn>), "get_Item");
         public static bool IsDroid(this Pawn p)
         {
             return p.RaceProps.FleshType.ToString() == "ChJDroid";
@@ -28,7 +30,7 @@ namespace AndroidsIdeologyPatch
         }
 		static HarmonyPatches()
         {
-            Log.Message("AndroidsIdeologyPatch Loaded");
+            Log.Message("AndroidsIdeologyPatch Initializing...");
 			patchType = typeof(HarmonyPatches);
 			Harmony harmony = new Harmony("com.reggex.AndroidIdeologyPatch");
             //Patch all "ShouldHaveThought" method in ThoughtWorker_Precept_*_Social
@@ -45,12 +47,13 @@ namespace AndroidsIdeologyPatch
                     harmony.Patch(method, postfix: new HarmonyMethod(patchType, "SocialPostfix"));
                 }
             }*/
-			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic), "ShouldHaveThought"),null, new HarmonyMethod(patchType,"ProstheticShouldHaveThoughtPostfix"));
-			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "ProstheticShouldHaveThoughtSocialPostfix"));
-            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Social), "ShouldHaveThought"), null, new HarmonyMethod(patchType, "SocialPostfix"));
+			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic), "ShouldHaveThought"), postfix: new HarmonyMethod(patchType,nameof(ProstheticShouldHaveThoughtPostfix)));
+			harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_HasNoProsthetic_Social), "ShouldHaveThought"), postfix: new HarmonyMethod(patchType, nameof(ProstheticShouldHaveThoughtSocialPostfix)));
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Social), "ShouldHaveThought"), postfix: new HarmonyMethod(patchType, nameof(SocialPostfix)));
             //Transpilers that add new conditions
-            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity), "ShouldHaveThought"), null,null,new HarmonyMethod(patchType, "DiversityTranspiler"));
-            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Uniform), "ShouldHaveThought"), null,null, new HarmonyMethod(patchType, "UniformTranspiler"));
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity), "ShouldHaveThought"), transpiler: new HarmonyMethod(patchType, nameof(DiversityTranspiler)));
+            harmony.Patch(AccessTools.Method(typeof(ThoughtWorker_Precept_IdeoDiversity_Uniform), "ShouldHaveThought"), transpiler: new HarmonyMethod(patchType, nameof(UniformTranspiler)));
+            Log.Message("AndroidsIdeologyPatch Initialized.");
 		}
 		public static void ProstheticShouldHaveThoughtPostfix(ref ThoughtState __result, Pawn p)
         {
@@ -63,7 +66,7 @@ namespace AndroidsIdeologyPatch
 			return;
         }
 
-        public static void SocialThoughtWorkerPatchForDroids(MethodBase __originalMethod, Pawn p, Pawn otherPawn, ref ThoughtState __result)
+        public static void SocialThoughtWorkerPatchForDroids(Pawn p, Pawn otherPawn, ref ThoughtState __result)
         {
             __result = otherPawn.IsDroid() ? false : __result;
         }
@@ -95,12 +98,12 @@ namespace AndroidsIdeologyPatch
             {
                 new CodeInstruction(OpCodes.Ldloc_2),
                 new CodeInstruction(OpCodes.Ldloc_3),
-                new CodeInstruction(OpCodes.Callvirt,AccessTools.Method(typeof(System.Collections.Generic.List<Verse.Pawn>),"get_Item")),
+                new CodeInstruction(OpCodes.Callvirt,list_get_Item),
                 new CodeInstruction(OpCodes.Call,AccessTools.Method(typeof(HarmonyPatches),"IsDroid")),
                 new CodeInstruction(OpCodes.Brtrue_S,nextloop),
                 new CodeInstruction(OpCodes.Ldloc_2),
                 new CodeInstruction(OpCodes.Ldloc_3),
-                new CodeInstruction(OpCodes.Callvirt,AccessTools.Method(typeof(System.Collections.Generic.List<Verse.Pawn>),"get_Item")),
+                new CodeInstruction(OpCodes.Callvirt,list_get_Item),
                 new CodeInstruction(OpCodes.Call,AccessTools.Method(typeof(HarmonyPatches),"IsSkynet")),
                 new CodeInstruction(OpCodes.Brtrue_S,nextloop),
             };
@@ -140,12 +143,12 @@ namespace AndroidsIdeologyPatch
             {
                 new CodeInstruction(OpCodes.Ldloc_0),
                 new CodeInstruction(OpCodes.Ldloc_2),
-                new CodeInstruction(OpCodes.Callvirt,AccessTools.Method(typeof(System.Collections.Generic.List<Verse.Pawn>),"get_Item")),
+                new CodeInstruction(OpCodes.Callvirt,list_get_Item),
                 new CodeInstruction(OpCodes.Call,AccessTools.Method(typeof(HarmonyPatches),"IsDroid")),
                 new CodeInstruction(OpCodes.Brtrue_S,nextloop),
                 new CodeInstruction(OpCodes.Ldloc_0),
                 new CodeInstruction(OpCodes.Ldloc_2),
-                new CodeInstruction(OpCodes.Callvirt,AccessTools.Method(typeof(System.Collections.Generic.List<Verse.Pawn>),"get_Item")),
+                new CodeInstruction(OpCodes.Callvirt,list_get_Item),
                 new CodeInstruction(OpCodes.Call,AccessTools.Method(typeof(HarmonyPatches),"IsSkynet")),
                 new CodeInstruction(OpCodes.Brtrue_S,nextloop),
             };
